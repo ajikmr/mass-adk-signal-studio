@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant U as User
+    participant A as mass_adk Agent
+    participant G as Gemini
+    participant T as ADK Tools
+    participant M as MASS-ADK Artifacts
+
+    U->>A: Ask for experiment summary or artifact inspection
+    A->>G: Interpret request and choose tools
+    A->>T: Call list/compare/inspect tools
+    T->>M: Read manifest, sample-backed result filenames, checkpoint JSON, SQLite counts
+    M-->>T: Return read-only metadata
+    T-->>A: Tool response
+    A->>G: Compose grounded explanation with caveats
+    A-->>U: Research-only answer, no investment advice

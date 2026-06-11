@@ -1,0 +1,269 @@
+{
+  "version": 1,
+  "updated": "2026-06-08",
+  "source_documents": [
+    "../paper_workshop/paper_next_game/EXPERIMENTAL_RESULTS.md",
+    "../paper_workshop/paper_next_game/paper.tex",
+    "../PORTFOLIO_MANAGEMENT_COMPARISON.md"
+  ],
+  "datasets": [
+    {
+      "id": "china_ih",
+      "label": "China SSE50 / ih pool",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "primary_window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "notes": "Released MASS-compatible dataset with available modalities restricted to OHLCV, cross-industry labels, price features, and macro context."
+    },
+    {
+      "id": "sp500",
+      "label": "S&P 500 transfer dataset",
+      "market": "US large caps",
+      "stock_pool": "sp500",
+      "primary_window": "2025-01-01 to 2026-04-15",
+      "evaluation_start": "2025-10-01 for short-window analysis",
+      "notes": "Local SP500 extension used for cross-market transfer checks with stock_num=40 for coverage."
+    }
+  ],
+  "experiments": [
+    {
+      "id": "china_a_64_multiseed",
+      "label": "China 64-agent baseline A",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "agents": 64,
+      "investor_types": 8,
+      "agents_per_type": 8,
+      "config": "A",
+      "fitness_signal_col": "Signal_std",
+      "optimizer": "sa",
+      "learn_alpha": false,
+      "turnover_penalty": 0.0,
+      "seeds": ["00", "11", "22"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.0331,
+        "rank_ic_std": 0.0099,
+        "rank_icir": 0.1756
+      },
+      "takeaway": "The original SA + Signal_std baseline is the strongest robust 64-agent result in the China ablation.",
+      "limitations": [
+        "Signal-quality metric only; not a portfolio-return result.",
+        "Six-month China window only."
+      ]
+    },
+    {
+      "id": "china_d_64_multiseed",
+      "label": "China 64-agent CMA-ES D",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "agents": 64,
+      "investor_types": 8,
+      "agents_per_type": 8,
+      "config": "D",
+      "fitness_signal_col": "Signal",
+      "optimizer": "cma_es",
+      "learn_alpha": true,
+      "turnover_penalty": 0.0,
+      "seeds": ["00", "11", "22"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.023,
+        "rank_ic_std": 0.0055,
+        "rank_icir": 0.1085
+      },
+      "takeaway": "CMA-ES recovers from the SA learn-alpha collapse but does not beat the 64-agent baseline.",
+      "limitations": ["Signal-quality metric only; not a portfolio-return result."]
+    },
+    {
+      "id": "china_e_64_multiseed",
+      "label": "China 64-agent CMA-ES E with turnover",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "agents": 64,
+      "investor_types": 8,
+      "agents_per_type": 8,
+      "config": "E",
+      "fitness_signal_col": "Signal",
+      "optimizer": "cma_es",
+      "learn_alpha": true,
+      "turnover_penalty": 0.1,
+      "seeds": ["00", "11", "22"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.0205,
+        "rank_ic_std": 0.0044,
+        "rank_icir": 0.0838
+      },
+      "takeaway": "Turnover penalty improves consistency but still does not beat the simple 64-agent baseline.",
+      "limitations": ["Signal-quality metric only; not a portfolio-return result."]
+    },
+    {
+      "id": "china_f_64_multiseed",
+      "label": "China 64-agent weak-turnover F",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "agents": 64,
+      "investor_types": 8,
+      "agents_per_type": 8,
+      "config": "F",
+      "fitness_signal_col": "Signal",
+      "optimizer": "cma_es",
+      "learn_alpha": true,
+      "turnover_penalty": 0.01,
+      "seeds": ["00", "11", "22"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.0128,
+        "rank_ic_std": 0.0255,
+        "rank_icir": 0.0542
+      },
+      "takeaway": "Weak turnover penalty is highly unstable and worse than no penalty or strong penalty.",
+      "limitations": ["High variance across only three seeds."]
+    },
+    {
+      "id": "china_e_512_seed00",
+      "label": "China 512-agent improved E",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "agents": 512,
+      "investor_types": 32,
+      "agents_per_type": 16,
+      "config": "E-512",
+      "fitness_signal_col": "Signal",
+      "optimizer": "cma_es",
+      "learn_alpha": true,
+      "turnover_penalty": 0.1,
+      "seeds": ["00"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.0435,
+        "rank_ic_std": null,
+        "rank_icir": 0.1492
+      },
+      "takeaway": "The improved mechanism is positive at 512 agents and exceeds the robust 64-agent baseline mean.",
+      "limitations": [
+        "Single-seed China 512-agent result.",
+        "Signal-quality metric only; not a portfolio-return result."
+      ]
+    },
+    {
+      "id": "china_a_512_seed00",
+      "label": "China 512-agent baseline A",
+      "market": "China A-shares",
+      "stock_pool": "ih",
+      "window": "2022-12-02 to 2023-06-15",
+      "evaluation_start": "2023-01-02",
+      "agents": 512,
+      "investor_types": 32,
+      "agents_per_type": 16,
+      "config": "A-512",
+      "fitness_signal_col": "Signal_std",
+      "optimizer": "sa",
+      "learn_alpha": false,
+      "turnover_penalty": 0.0,
+      "seeds": ["00"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": -0.0064,
+        "rank_ic_std": null,
+        "rank_icir": -0.0293
+      },
+      "takeaway": "The SA baseline collapses at 512 agents in the local China run, supporting the optimizer-capability story.",
+      "limitations": ["Single-seed 512-agent baseline comparator."]
+    },
+    {
+      "id": "sp500_e_512_short_multiseed",
+      "label": "SP500 512-agent improved E short-window transfer",
+      "market": "US large caps",
+      "stock_pool": "sp500",
+      "window": "2025-10-01 to 2026-03-31",
+      "evaluation_start": "2025-10-01",
+      "agents": 512,
+      "investor_types": 16,
+      "agents_per_type": 32,
+      "config": "E-512",
+      "fitness_signal_col": "Signal",
+      "optimizer": "cma_es",
+      "learn_alpha": true,
+      "turnover_penalty": 0.1,
+      "seeds": ["42", "72", "92"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.0139,
+        "rank_ic_std": 0.0067,
+        "rank_icir": null
+      },
+      "takeaway": "The improved 512-agent mechanism transfers directionally to SP500, but the signal is weaker than the China hero result.",
+      "limitations": [
+        "Short-window SP500 transfer check.",
+        "Uses stock_num=40 for broader SP500 coverage.",
+        "Signal-quality metric only; not a portfolio-return result."
+      ]
+    },
+    {
+      "id": "sp500_a_512_short_seed42",
+      "label": "SP500 512-agent baseline A short-window comparator",
+      "market": "US large caps",
+      "stock_pool": "sp500",
+      "window": "2025-10-01 to 2026-03-31",
+      "evaluation_start": "2025-10-01",
+      "agents": 512,
+      "investor_types": 16,
+      "agents_per_type": 32,
+      "config": "A-512",
+      "fitness_signal_col": "Signal_std",
+      "optimizer": "sa",
+      "learn_alpha": false,
+      "turnover_penalty": 0.0,
+      "seeds": ["42"],
+      "metrics": {
+        "label_horizon_days": 10,
+        "rank_ic_mean": 0.0031,
+        "rank_ic_std": null,
+        "rank_icir": 0.0416
+      },
+      "takeaway": "The matched SP500 SA baseline is much weaker than the improved E-512 seed-42 run on Rank IC.",
+      "limitations": ["Single-seed same-market SP500 comparator."]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "china_64_ablation",
+      "label": "China 64-agent ablation",
+      "experiment_ids": [
+        "china_a_64_multiseed",
+        "china_d_64_multiseed",
+        "china_e_64_multiseed",
+        "china_f_64_multiseed"
+      ],
+      "summary": "At 64 agents, the simple SA + Signal_std baseline is the strongest robust result; the mechanism fixes do not beat it with three seeds."
+    },
+    {
+      "id": "china_512_scale",
+      "label": "China 512-agent scale comparison",
+      "experiment_ids": ["china_a_512_seed00", "china_e_512_seed00"],
+      "summary": "At 512 agents, the improved CMA-ES mechanism is positive while the SA baseline is negative in the single-seed local check."
+    },
+    {
+      "id": "sp500_transfer",
+      "label": "SP500 transfer comparison",
+      "experiment_ids": [
+        "sp500_e_512_short_multiseed",
+        "sp500_a_512_short_seed42"
+      ],
+      "summary": "The SP500 transfer evidence is positive for E-512 and stronger than the matched A-512 seed-42 baseline, but remains weaker than China and should be treated as signal-transfer evidence rather than portfolio performance."
+    }
+  ]
+}

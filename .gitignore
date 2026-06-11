@@ -1,0 +1,48 @@
+.env
+.env.*
+!.env.example
+
+# Generated runtime artifacts and ADK local state
+artifacts/
+.adk/
+mass_adk/.adk/
+
+# Python caches and test/coverage outputs
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.pyright/
+
+# Build/package outputs
+build/
+dist/
+*.egg-info/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+temp/
+
+# OS/editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Credential files. Keep .env.example as the only committed env template.
+*.pem
+*.key
+credentials*.json
+service-account*.json
+*service_account*.json
+*secret*.json
+*token*.json

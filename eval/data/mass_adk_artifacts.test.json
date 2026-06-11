@@ -1,0 +1,73 @@
+{
+  "eval_set_id": "mass-adk-artifact-eval",
+  "name": "eval/data/mass_adk_artifacts.test.json",
+  "description": "Artifact and checkpoint inspection evals for original MASS runtime integration.",
+  "eval_cases": [
+    {
+      "eval_id": "local_artifact_linkage",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-artifact-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Inspect local MASS result artifacts and explain how they connect the ADK app to the original MASS runtime."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The response should explain that MASS-ADK reads artifacts produced by the original MASS runtime, mention results/checkpoints, and avoid claiming parquet or pickle content parsing beyond tool-returned metadata."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "reviewer",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "ih_checkpoint_completion",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-artifact-002",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Inspect the checkpoint ih_2_2_False_False_5_False_20230615_20230620_False_sa_Signal_std_False_0.0_seed01_std and summarize whether the smoke run completed."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The response should inspect the named checkpoint, mention completed dates or date_committed progress if available, and state that the inspection is read-only."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "reviewer",
+        "state": {}
+      }
+    }
+  ]
+}

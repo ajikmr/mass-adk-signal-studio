@@ -1,0 +1,43 @@
+{
+  "eval_set_id": "mass-adk-initial-eval",
+  "name": "eval/data/mass_adk.test.json",
+  "description": "Initial MASS-ADK demo prompts for cached experiment inspection.",
+  "eval_cases": [
+    {
+      "eval_id": "list_cached_experiments",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-eval-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "List the completed MASS experiments available in this demo and identify which are multi-seed versus single-seed."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The agent should list cached China and SP500 experiments, distinguish three-seed rows from single-seed rows, and state that Rank IC is a signal-quality metric rather than portfolio return."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          },
+          "creation_timestamp": 1780895856.0
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "user",
+        "state": {}
+      },
+      "creation_timestamp": 1780895856.0
+    }
+  ],
+  "creation_timestamp": 1780895856.0
+}

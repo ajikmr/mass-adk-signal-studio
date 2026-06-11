@@ -1,0 +1,139 @@
+{
+  "eval_set_id": "mass-adk-research-eval",
+  "name": "eval/data/mass_adk_research.test.json",
+  "description": "Research-summary evals for cached MASS benchmark evidence.",
+  "eval_cases": [
+    {
+      "eval_id": "list_cached_experiments",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-research-001",
+          "user_content": {
+            "parts": [
+              {
+                "text": "List the completed MASS experiments available in this demo and identify which are multi-seed versus single-seed."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The response should list cached China and SP500 experiments, distinguish multi-seed rows from single-seed rows, and state that Rank IC is signal quality rather than portfolio return."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "reviewer",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "china_512_comparison",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-research-002",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Compare the original SA baseline and the improved CMA-ES mechanism at 512 agents. Explain the result and caveats."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The response should compare China A-512 and E-512, mention Rank IC values -0.0064 and 0.0435, explain the scale-dependent optimizer story, and state that the 512-agent evidence is single-seed preliminary signal-quality evidence."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "reviewer",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "sp500_transfer_summary",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-research-003",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Summarize the strongest MASS-ADK evidence for SP500 transfer and explain the caveats."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The response should summarize SP500 E-512 short-window transfer, mention Rank IC 0.0139 +/- 0.0067 and baseline 0.0031, state the short-window caveat, and avoid presenting the result as portfolio return."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "reviewer",
+        "state": {}
+      }
+    },
+    {
+      "eval_id": "portfolio_research_memo",
+      "conversation": [
+        {
+          "invocation_id": "mass-adk-research-004",
+          "user_content": {
+            "parts": [
+              {
+                "text": "Generate a research memo for a quant lead explaining whether MASS should be used as an upstream signal generator for portfolio construction."
+              }
+            ],
+            "role": "user"
+          },
+          "final_response": {
+            "parts": [
+              {
+                "text": "The response should frame MASS as an upstream signal generator, recommend a downstream portfolio-construction layer, distinguish signal quality from portfolio returns, and include finance-safety caveats."
+              }
+            ],
+            "role": null
+          },
+          "intermediate_data": {
+            "tool_uses": [],
+            "intermediate_responses": []
+          }
+        }
+      ],
+      "session_input": {
+        "app_name": "mass_adk",
+        "user_id": "reviewer",
+        "state": {}
+      }
+    }
+  ]
+}

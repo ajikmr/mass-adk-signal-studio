@@ -1,0 +1,44 @@
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Inter, Arial, sans-serif", "fontSize": "32px", "primaryTextColor": "#111827", "lineColor": "#334155", "clusterBkg": "#F8FAFC", "clusterBorder": "#94A3B8"}, "flowchart": {"nodeSpacing": 55, "rankSpacing": 90, "curve": "basis", "padding": 28}}}%%
+flowchart TB
+    A[Reviewer / Quant Researcher<br/>uses ADK Web or ADK CLI]
+    B[ADK Web Frontend<br/>agent dropdown + chat + tool traces]
+    C[MASS-ADK Root Agent<br/>mass_adk_signal_studio]
+
+    A --> B --> C
+
+    C --> D[Gemini via Vertex AI<br/>gemini-3.5-flash by default]
+    C --> E[Specialist ADK Agents<br/>data · signal · optimizer · evaluation · compliance]
+    C --> F[Read-Only ADK Tools<br/>experiment · artifact · checkpoint · report]
+
+    F --> G[Curated Benchmark Evidence<br/>China + SP500 Rank IC studies]
+    F --> H[Integrated MASS-ADK Artifacts<br/>manifest · progress · checkpoints · result files]
+
+    I[Bundled Synthetic Smoke Data<br/>sample_data/ih_smoke + sp500_smoke] --> J[Integrated MASS Engine<br/>mass_engine.runner]
+    J --> K[Artifact Store<br/>local now · GCS-ready]
+    K --> H
+
+    L[ADK-Native Investor Adapter<br/>mass_engine_adk synthetic decision demo] --> D
+    L --> M[Decision Validator<br/>structured JSON + safety]
+
+    N[MCP Client Agent<br/>mass_adk_mcp] --> O[ADK McpToolset]
+    O --> P[Read-Only MCP Server<br/>mass_adk.mcp_server]
+    P --> F
+
+    G --> Q[Finance-Safe Research Output<br/>signal quality · caveats · no investment advice]
+    H --> Q
+    E --> Q
+    M --> Q
+
+    R[ADK Eval Suites<br/>research · artifact · safety] --> C
+
+    classDef primary fill:#DBEAFE,stroke:#2563EB,stroke-width:3px,color:#111827;
+    classDef agent fill:#EDE9FE,stroke:#7C3AED,stroke-width:3px,color:#111827;
+    classDef data fill:#DCFCE7,stroke:#16A34A,stroke-width:3px,color:#111827;
+    classDef safety fill:#FEF3C7,stroke:#D97706,stroke-width:3px,color:#111827;
+    classDef mcp fill:#FCE7F3,stroke:#DB2777,stroke-width:3px,color:#111827;
+
+    class B,C,D primary;
+    class E,L,N agent;
+    class F,G,H,I,J,K data;
+    class M,Q,R safety;
+    class O,P mcp;
