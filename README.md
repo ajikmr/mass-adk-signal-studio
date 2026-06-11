@@ -1,6 +1,6 @@
 # MASS-ADK Signal Studio
 
-MASS-ADK packages the MASS multi-agent stock-selection research workflow as a Google ADK agent application for the Google for Startups AI Agents Challenge.
+MASS-ADK packages the MASS (Multi-Agent Simulation Scaling for Portfolio Construction) multi-agent stock-selection research workflow as a Google ADK agent application for the Google for Startups AI Agents Challenge. Please see original research [here](https://github.com/gta0804/MASS)
 
 The first implementation focuses on reliable, auditable research over cached MASS benchmark evidence. Expensive live LLM runs are disabled by default and should only be enabled for tiny smoke tests.
 
